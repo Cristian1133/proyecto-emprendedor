@@ -1,0 +1,219 @@
+.animated-table {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) ;
+    }
+}
+
+.table-hover tbody tr:hover {
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.table thead th {
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: transparent;
+    color: white;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+.container {
+    
+    max-width: 1200px; /* Ancho máximo más razonable */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: transparent !important;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+.table-striped tbody tr.fortalezas-row,
+.table-striped tbody tr.debilidades-row,
+.table-striped tbody tr.oportunidades-row,
+.table-striped tbody tr.amenazas-row,
+.table-striped tbody tr.politicos-row,
+.table-striped tbody tr.economicos-row,
+.table-striped tbody tr.sociales-row,
+.table-striped tbody tr.tecnologicos-row,
+.table-striped tbody tr.ecologicos-row,
+.table-striped tbody tr.legales-row {
+    background-color: transparent;
+    
+    
+    
+}
+
+.fortalezas-row td, .debilidades-row td, .oportunidades-row td, .amenazas-row td,
+.politicos-row td, .economicos-row td, .sociales-row td, .tecnologicos-row td,
+.ecologicos-row td, .legales-row td {
+   
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    
+}
+
+.fortalezas-row { background: linear-gradient(to right, #d4af37, #ffdd89, #b8860b) !important; }
+.debilidades-row { background: linear-gradient(to right, #8fbc8f, #98fb98, #7ac57e) !important; }
+.oportunidades-row { background: linear-gradient(to right, #d2691e, #e9967a, #b8860b)!important; }
+.amenazas-row { background: linear-gradient(to right, #b87333, #cd7f32, #d2691e); }
+.politicos-row { background: linear-gradient(to right, #b76e79, #e9967a, #cd5c5c)!important; }
+.economicos-row { background: linear-gradient(to right, #848484, #a9a9a9, #696969)!important; }
+.sociales-row { background: linear-gradient(to right, #d2691e, #e9967a, #b8860b)!important; }
+.tecnologicos-row { background: linear-gradient(to right, #cd5c5c, #f08080, #fa8072)!important; }
+.ecologicos-row { background: linear-gradient(to right, #4682b4, #6495ed, #2e64fe)!important; }
+.legales-row {background: linear-gradient(to right, #c0c0c0, #d3d3d3, #a9a9a9)!important; }
+
+.descripcion {
+    display: none;
+    padding: 10px;
+    background-color: #f0f0f0!important;
+    border-radius: 4px;
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+h2 {
+    font-size: 2.8em;
+    font-weight: 600;
+    color: #ffffff; /* Cambiado a blanco para mayor contraste en fondos oscuros */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra más fuerte */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 3px solid #66fcf1; /* Borde más claro y saturado */
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    text-align: center;
+    /* Opción para fondo de texto (si es necesario) */
+    /* background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 5px; */
+}
+
+h3.foda-title {
+    color: #ffffff; /* Azul */
+    font-size: 24px; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+    text-align: center; /* Centrar el texto */
+    text-transform: uppercase; /* Mayúsculas */
+    border-bottom: 2px solid #007bff; /* Línea inferior */
+    padding-bottom: 10px; /* Espacio inferior */
+}
+
+.descripcion ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.descripcion li {
+    margin-bottom: 5px;
+}
+
+
+/* Cambiar color de texto al pasar el cursor sobre los encabezados */
+.fortalezas-header:hover,
+.debilidades-header:hover,
+.oportunidades-header:hover,
+.amenazas-header:hover,
+.politicos-header:hover,
+.economicos-header:hover,
+.sociales-header:hover,
+.tecnologicos-header:hover,
+.ecologicos-header:hover,
+.legales-header:hover {
+    color: #ff0000; /* Cambia el color a tu preferencia */
+    cursor: pointer; /* Cambiar el cursor a una mano */
+}
+body {
+    
+    background-image: url('image.png') ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    
+}
+
+.tables-wrapper {
+    display: flex;
+    justify-content: space-between; /* Espacio entre las tablas */
+    width: 100%; /* El contenedor ocupa todo el ancho del container */
+}
+
+.foda-table-container, .pestel-table-container {
+    width: 48%; /* Cada tabla ocupa aproximadamente la mitad del ancho */
+    background-color: transparent; /* Fondo transparente */
+}
+
+/* Estilos adicionales para las tablas */
+.table {
+    width: 100%; /* Las tablas ocupan todo el ancho de sus contenedores */
+}
+
+/* ... (Tus estilos CSS existentes) ... */
+
+.estrategias-contenido {
+    display: none; /* Ocultar el contenido inicialmente */
+    padding: 20px;
+    background: linear-gradient(45deg, red, blue, green);
+    background-size: 300% 300%;
+   
+    border-radius: 8px;
+    margin-top: 10px;
+    color: #d3d3d3;
+    
+}
+
+.estrategias-header {
+    cursor: pointer;
+}
+
+.estrategias-container {
+    margin-top: 5px;
+}
+
+.estrategias-items {
+    margin-top: 10px;
+}
+
+.estrategia-item {
+    border: 1px solid #dee2e6;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.estrategia-titulo {
+    padding: 10px;
+    background-color: #112f4e;
+    border-bottom: 1px solid #1a3b5d;
+    cursor: pointer;
+    margin: 0;
+    background: linear-gradient(135deg, #bc7474, #bb4040, #ec2a2a);
+  background-size: 200% 200%;
+  animation: metalizado-animado 5s ease infinite;
+    color: #000000;
+}
+
+.estrategia-contenido {
+    padding: 10px;
+    display: none; 
+    background-color: #f8f9fa;/* Ocultar inicialmente */
+    font-size: 25px;
+}
+
+
