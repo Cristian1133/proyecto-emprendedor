@@ -62,7 +62,7 @@ body {
 .ecologicos-row td, .legales-row td {
    
     padding: 12px;
-    font-size: 16px;
+    font-size: 20px;
     border-radius: 8px;
     
 }
@@ -84,7 +84,7 @@ body {
     background-color: #f0f0f0!important;
     border-radius: 4px;
     margin-top: 5px;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 h2 {
@@ -106,7 +106,7 @@ h2 {
 
 h3.foda-title {
     color: #ffffff; /* Azul */
-    font-size: 24px; /* Tamaño de fuente */
+    font-size: 25px; /* Tamaño de fuente */
     font-weight: bold; /* Negrita */
     text-align: center; /* Centrar el texto */
     text-transform: uppercase; /* Mayúsculas */
@@ -121,6 +121,7 @@ h3.foda-title {
 
 .descripcion li {
     margin-bottom: 5px;
+    
 }
 
 
@@ -232,3 +233,51 @@ body::before {
 }
 
 
+/* Contenedor de la conclusión */
+.conclusion-container {
+    background: #f8f9fa; /* Fondo gris claro */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: all 0.3s ease-in-out;
+    background: transparent;
+}
+
+/* Estilo del título "Conclusión" */
+.conclusion-header {
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff; /* Azul llamativo */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: color 0.3s ease;
+    
+}
+
+/* Ícono desplegable */
+.toggle-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Cambio de color al pasar el mouse */
+.conclusion-header:hover {
+    color: #ed0000;
+}
+
+/* Contenido de la conclusión oculto inicialmente */
+.conclusion-contenido {
+    display: none;
+    margin-top: 10px;
+    font-size: 20PX;
+    color: #000000;
+    line-height: 1.6;
+    background-color: #f0f0f0;
+    border-radius: 10PX;
+}
+.rotated {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+}

@@ -55,6 +55,16 @@ $(document).ready(function() {
         $(this).find(".info-adicional").hide();
     });
 
-    // Ocultar la información adicional al cargar la página
-    $(".info-adicional").hide();
+    $(document).ready(function() {
+        $(".conclusion-header").click(function() {
+            $(".conclusion-contenido").slideToggle();
+            $(this).find(".toggle-icon").toggleClass("rotated"); // Agrega o quita la clase al icono
+        });
+    
+        // Ocultar la conclusión al cargar la página
+        $(".conclusion-contenido").hide();
+    });
+    
+   
+    
 });
