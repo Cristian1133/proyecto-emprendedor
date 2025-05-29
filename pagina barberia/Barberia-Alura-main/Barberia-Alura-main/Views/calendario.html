@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<header>
+			<div class="caja">
+				<h1><img src="../Images/logo.png" alt="Logo de la Barbería Alura"></h1>
+				<nav>
+					<ul>
+						<li><a href="../index.html">Home</a></li>
+						<li><a href="productos.html">Productos</a></li>
+						<li><a href="contacto.html">Contacto</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+    <title>Calendario para Agendar Citas</title>
+    <style>
+        /* Estilos básicos para el calendario */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .calendar-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .calendar-header h2 {
+            margin: 0;
+            color: #333;
+        }
+        .calendar-header button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .calendar-header button:hover {
+            background-color: #0056b3;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+        .calendar-grid .day-name {
+            font-weight: bold;
+            color: #555;
+            padding: 10px 0;
+            border-bottom: 2px solid #eee;
+        }
+        .calendar-grid .day {
+            padding: 15px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: #333;
+        }
+        .calendar-grid .day:hover {
+            background-color: #e9e9e9;
+        }
+        .calendar-grid .day.current-month {
+            background-color: #f0f0f0;
+        }
+        .calendar-grid .day.selected {
+            background-color: #007bff;
+            color: white;
+        }
+        .calendar-grid .day.today {
+            border: 2px solid #007bff;
+            font-weight: bold;
+        }
+        .calendar-grid .day.empty {
+            visibility: hidden; /* O puedes dejarlo en blanco si prefieres */
+        }
+
+        /* Estilos para el formulario de citas (oculto por defecto) */
+        .appointment-form {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            display: none; /* Oculto por defecto, se mostrará con JS */
+        }
+        .appointment-form h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .appointment-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .appointment-form input[type="time"],
+        .appointment-form input[type="text"],
+        .appointment-form textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .appointment-form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .appointment-form button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button id="prevMonth">Anterior</button>
+            <h2 id="currentMonthYear">Mayo 2025</h2>
+            <button id="nextMonth">Siguiente</button>
+        </div>
+        <div class="calendar-grid">
+            <div class="day-name">Dom</div>
+            <div class="day-name">Lun</div>
+            <div class="day-name">Mar</div>
+            <div class="day-name">Mié</div>
+            <div class="day-name">Jue</div>
+            <div class="day-name">Vie</div>
+            <div class="day-name">Sáb</div>
+            </div>
+
+        <div class="appointment-form" id="appointmentForm">
+            <h3>Agendar Cita para: <span id="selectedDate"></span></h3>
+            <form>
+                <label for="appointmentTime">Hora:</label>
+                <input type="time" id="appointmentTime" required>
+
+                <label for="clientName">Tu Nombre:</label>
+                <input type="text" id="clientName" placeholder="Ej. Juan Pérez" required>
+
+                <label for="appointmentReason">Tipo de corte:</label>
+                <textarea id="appointmentReason" rows="3" placeholder="Ej. Cabello, Barba, Cabello + barba."></textarea>
+
+                <button type="submit">Confirmar Cita</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- Lógica JavaScript para el calendario (muy básica) ---
+        const calendarGrid = document.querySelector('.calendar-grid');
+        const currentMonthYear = document.getElementById('currentMonthYear');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const appointmentForm = document.getElementById('appointmentForm');
+        const selectedDateSpan = document.getElementById('selectedDate');
+
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+
+        function renderCalendar() {
+            calendarGrid.innerHTML = `
+                <div class="day-name">Dom</div>
+                <div class="day-name">Lun</div>
+                <div class="day-name">Mar</div>
+                <div class="day-name">Mié</div>
+                <div class="day-name">Jue</div>
+                <div class="day-name">Vie</div>
+                <div class="day-name">Sáb</div>
+            `; // Reiniciar el grid
+
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const firstDayOfWeek = firstDayOfMonth.getDay(); // 0 (Dom) a 6 (Sáb)
+
+            currentMonthYear.textContent = new Date(currentYear, currentMonth).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+
+            // Rellenar días vacíos al inicio del mes
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('day', 'empty');
+                calendarGrid.appendChild(emptyDay);
+            }
+
+            // Crear los días del mes
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('day');
+                dayElement.textContent = day;
+
+                // Marcar el día actual
+                if (day === currentDate.getDate() && currentMonth === new Date().getMonth() && currentYear === new Date().getFullYear()) {
+                    dayElement.classList.add('today');
+                }
+
+                // Añadir clase para días del mes actual (para futuro CSS si se muestran días de otros meses)
+                dayElement.classList.add('current-month');
+
+                // Lógica para seleccionar día
+                dayElement.addEventListener('click', () => {
+                    // Remover selección anterior
+                    const previouslySelected = document.querySelector('.day.selected');
+                    if (previouslySelected) {
+                        previouslySelected.classList.remove('selected');
+                    }
+                    // Seleccionar el día actual
+                    dayElement.classList.add('selected');
+
+                    // Mostrar formulario de cita
+                    const fullDate = new Date(currentYear, currentMonth, day);
+                    selectedDateSpan.textContent = fullDate.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    appointmentForm.style.display = 'block'; // Mostrar el formulario
+                });
+
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        // Navegación entre meses
+        prevMonthBtn.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        });
+
+        // Evento para el formulario de cita (ejemplo, no guarda nada)
+        document.querySelector('#appointmentForm form').addEventListener('submit', (e) => {
+            e.preventDefault(); // Evita que la página se recargue
+
+            const selectedDate = selectedDateSpan.textContent;
+            const appointmentTime = document.getElementById('appointmentTime').value;
+            const clientName = document.getElementById('clientName').value;
+            const appointmentReason = document.getElementById('appointmentReason').value;
+
+            if (selectedDate && appointmentTime && clientName) {
+                alert(`Cita agendada:\nFecha: ${selectedDate}\nHora: ${appointmentTime}\nCliente: ${clientName}\nMotivo: ${appointmentReason || 'N/A'}`);
+                // Aquí es donde enviarías los datos a un servidor
+                // Ejemplo: fetch('/api/agendarCita', { method: 'POST', body: JSON.stringify({ fecha, hora, nombre, motivo }) });
+                // Luego de guardar, podrías limpiar el formulario y ocultarlo
+                document.querySelector('#appointmentForm form').reset();
+                appointmentForm.style.display = 'none';
+            } else {
+                alert('Por favor, completa todos los campos requeridos para la cita.');
+            }
+        });
+
+        // Renderizar el calendario al cargar la página
+        renderCalendar();
+    </script>
+</body>
+</html>
